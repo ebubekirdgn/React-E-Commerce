@@ -1,7 +1,7 @@
-import RateLimit from 'express-rate-limit';
-import RedisStore from 'rate-limit-redis';
-import redis from './clients/redis';
-import Boom from 'boom';
+import RateLimit from "express-rate-limit";
+import RedisStore from "rate-limit-redis";
+import redis from "./clients/redis";
+import Boom from "boom";
 
 const limiter = new RateLimit({
   store: new RedisStore({

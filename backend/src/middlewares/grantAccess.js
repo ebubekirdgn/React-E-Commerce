@@ -1,5 +1,5 @@
-import { roles } from '../roles';
-import Boom from 'boom';
+import { roles } from "../roles";
+import Boom from "boom";
 
 const grantAccess = (action, resource) => {
   return async (req, res, next) => {
