@@ -50,6 +50,22 @@ var _base = require('./base');
   return false;
 } exports.hasPrecedingLineBreak = hasPrecedingLineBreak;
 
+ function hasFollowingLineBreak() {
+  const nextStart = _index.nextTokenStart.call(void 0, );
+  for (let i = _base.state.end; i < nextStart; i++) {
+    const code = _base.input.charCodeAt(i);
+    if (
+      code === _charcodes.charCodes.lineFeed ||
+      code === _charcodes.charCodes.carriageReturn ||
+      code === 0x2028 ||
+      code === 0x2029
+    ) {
+      return true;
+    }
+  }
+  return false;
+} exports.hasFollowingLineBreak = hasFollowingLineBreak;
+
  function isLineTerminator() {
   return _index.eat.call(void 0, _types.TokenType.semi) || canInsertSemicolon();
 } exports.isLineTerminator = isLineTerminator;

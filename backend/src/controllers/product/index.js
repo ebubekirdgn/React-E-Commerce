@@ -43,7 +43,7 @@ const Update = async (req, res, next) => {
 
 	try {
 		const updated = await Product.findByIdAndUpdate(product_id, req.body, {
-			new: true,
+			new: true, // güncel halini verir false dersek güncel olmayan halini verir
 		});
 
 		res.json(updated);
@@ -68,6 +68,8 @@ const Delete = async (req, res, next) => {
 	}
 };
 
+
+//sayfadaki listeleme burada yapılır
 const limit = 12;
 const GetList = async (req, res, next) => {
 	let { page } = req.query;

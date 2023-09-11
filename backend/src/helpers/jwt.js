@@ -10,7 +10,7 @@ const signAccessToken = (data) => {
 		};
 
 		const options = {
-			expiresIn: "10d",
+			expiresIn: "10d", // 10 gün boyunca sakla
 			issuer: "ecommerce.app",
 		};
 
@@ -51,7 +51,7 @@ const signRefreshToken = (user_id) => {
 			user_id,
 		};
 		const options = {
-			expiresIn: "180d",
+			expiresIn: "180d", // 180 gün
 			issuer: "ecommerce.app",
 		};
 
@@ -61,7 +61,7 @@ const signRefreshToken = (user_id) => {
 				reject(Boom.internal());
 			}
 
-			redis.set(user_id, token, "EX", 180 * 24 * 60 * 60);
+			redis.set(user_id, token, "EX", 180 * 24 * 60 * 60); //redis üzerine yazdırılıyor oluşturulan token
 
 			resolve(token);
 		});
