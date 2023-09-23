@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 function Navbar() {
   return (
     <nav className={styles.nav}>
-      <div className="left">
+      <div className={styles.left}>
         <div className="logo">
           <Link to="/">E-COMMERCE</Link>
         </div>
 
-        <ul className="menu">
+        <ul className={styles.menu}>
           <li>
             <Link to="/">Products</Link>
           </li>
