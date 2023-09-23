@@ -32,7 +32,7 @@ const Get = async (req, res, next) => {
   try {
     const product = await Product.findById(product_id);
 
-    res.json(product);
+    res.json(product); // Product'ın json haline dönülmesini sağlıyoruz.
   } catch (e) {
     next(e);
   }
