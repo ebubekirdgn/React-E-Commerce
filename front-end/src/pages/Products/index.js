@@ -1,20 +1,26 @@
 import Card from "../../components/Card";
 import { Grid } from "@chakra-ui/react";
 import React from "react";
+import { useQuery } from "react-query";
 
 function Products() {
+  const { isLoading, error, data } = useQuery("repoData", () =>
+    fetch("http://localhost:4000/product").then((res) => res.json())
+  );
+
+  if (isLoading) return "Loading...";
+
+  if (error) return "An error has occurred: " + error.message;
+
+  console.log("data", data);
   return (
     <div>
       <Grid templateColumns="repeat(3, 1fr)" gap={3}>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {data.map((item, key) => (
+          <Card key={key} item={item} />
+        ))}
       </Grid>
     </div>
   );
 }
-
 export default Products;
