@@ -4,7 +4,7 @@ import React from "react";
 import { useQuery } from "react-query";
 
 function Products() {
-  const { isLoading, error, data } = useQuery("repoData", () =>
+  const { isLoading, error, data } = useQuery("products", () =>
     fetch("http://localhost:4000/product").then((res) => res.json())
   );
 

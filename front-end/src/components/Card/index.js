@@ -1,6 +1,7 @@
 import { Box, Image, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import React from "react";
+import moment from "moment";
 
 function Card({ item }) {
   return (
@@ -9,7 +10,7 @@ function Card({ item }) {
         <Image src="https://picsum.photos/400/200" alt="Product" />
         <Box p="6">
           <Box d="plex" alignItems="baseline">
-            {item.createdAt}
+            {moment(item.createdAt).format("DD/MM/YYYY")}
           </Box>
           <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight">
             {item.title}
