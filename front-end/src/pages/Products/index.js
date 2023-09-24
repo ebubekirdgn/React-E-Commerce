@@ -2,11 +2,11 @@ import Card from "../../components/Card";
 import { Grid } from "@chakra-ui/react";
 import React from "react";
 import { useQuery } from "react-query";
+import fetchProductList from "../../api";
 
 function Products() {
-  const { isLoading, error, data } = useQuery("products", () =>
-    fetch("http://localhost:4000/product").then((res) => res.json())
-  );
+  /* fetchProductList ile useQuery üzerinden fetch işlemi yaptık ancak bunu api.jsdeki axios ile yaptık */
+  const { isLoading, error, data } = useQuery("products", fetchProductList);
 
   if (isLoading) return "Loading...";
 
