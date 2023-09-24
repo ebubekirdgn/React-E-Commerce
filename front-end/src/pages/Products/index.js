@@ -14,7 +14,7 @@ function Products() {
 
   return (
     <div>
-      <Grid templateColumns="repeat(3, 1fr)" gap={3}>
+      <Grid templateColumns="repeat(4, minmax(min-content, 1fr))" gap={0}>
         {data.map((item, key) => (
           <Card key={key} item={item} />
         ))}
