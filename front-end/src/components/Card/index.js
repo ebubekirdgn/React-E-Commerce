@@ -12,13 +12,8 @@ function Card({ item }) {
       overflow="hidden"
       className={styles.box}
     >
-      <Link to="#">
-        <Image
-          src={item.photos[0]}
-          alt="Product"
-          loading="lazy"
-          className={styles.img}
-        />
+      <Link to={`/product/${item._id}`}>
+        <Image src={item.photos[0]} alt="Product"loading="lazy" className={styles.img}/>
         <Box p="6">
           <Box d="plex" alignItems="baseline">
             {moment(item.createdAt).format("DD/MM/YYYY")}
