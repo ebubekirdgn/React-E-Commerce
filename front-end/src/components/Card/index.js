@@ -13,7 +13,12 @@ function Card({ item }) {
       className={styles.box}
     >
       <Link to={`/product/${item._id}`}>
-        <Image src={item.photos[0]} alt="Product"loading="lazy" className={styles.img}/>
+        <Image
+          src={item.photos[0]}
+          alt="Product"
+          loading="lazy"
+          className={styles.img}
+        />
         <Box p="6">
           <Box d="plex" alignItems="baseline">
             {moment(item.createdAt).format("DD/MM/YYYY")}
