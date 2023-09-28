@@ -34,3 +34,8 @@
 .nav .right a:first-child {
     margin-right: 5px;
 }
+
+.logo{
+   font-weight: bold; 
+   text-decoration: underline;
+}

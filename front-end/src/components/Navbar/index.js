@@ -7,8 +7,8 @@ function Navbar() {
   return (
     <nav className={styles.nav}>
       <div className={styles.left}>
-        <div className="logo">
-          <Link to="/">E-COMMERCE</Link>
+        <div className={styles.logo}>
+          <Link to="/">e-Commerce</Link>
         </div>
 
         <ul className={styles.menu}>
