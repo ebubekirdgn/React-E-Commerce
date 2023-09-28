@@ -20,23 +20,21 @@ function ProductDetail() {
     return <div>...Error...</div>;
   }
 
-  console.log(data);
-
   const images = data.photos.map((url) => ({ original: url }));
   return (
     <div>
-      <Button colorScheme="blue" variant="solid">
-        Sepete Ekle
-      </Button>
+      <Box margin="3" width="350px" height="350px">
+        <ImageGallery items={images} />
+      </Box>
       <Text as="h2" fontSize="2xl">
         {data.title}
       </Text>
       <Text>{moment(data.createdAt).format("DD/MM/YYYY")}</Text>
       <Text>{data.price}</Text>
       <p>{data.description}</p>
-      <Box margin="10">
-        <ImageGallery items={images} />;
-      </Box>
+      <Button colorScheme="blue" variant="solid">
+        Sepete Ekle
+      </Button>
     </div>
   );
 }

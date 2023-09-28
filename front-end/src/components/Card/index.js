@@ -29,8 +29,8 @@ function Card({ item }) {
           <Box>{item.price} ₺ </Box>
         </Box>
       </Link>
-      <div class={styles.card}>
-      <div class={styles.info}>
+      <div className={styles.card}>
+      <div className={styles.info}>
           <Button colorScheme="blue">Sepete Ekle</Button>
       </div>
       </div>
