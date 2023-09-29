@@ -5,8 +5,10 @@
     border-bottom: solid 1px #e2e8f0;
     line-height: 2px;
     align-items: center;
+    justify-content: space-around;
 }
 
+ 
 .nav .left {
     display: flex;
 }
@@ -36,6 +38,7 @@
 }
 
 .logo{
+    
    font-weight: bold; 
    text-decoration: underline;
 }
