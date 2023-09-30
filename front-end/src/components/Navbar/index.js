@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./styles.module.css";
-import { Button, Image } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 function Navbar() {

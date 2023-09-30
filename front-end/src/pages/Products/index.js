@@ -1,24 +1,77 @@
-import Card from "../../components/Card";
-import { Grid } from "@chakra-ui/react";
+import { Box, Flex, Grid } from "@chakra-ui/react";
 import React from "react";
-import { useQuery } from "react-query";
-import {fetchProductList} from "../../api";
+import { useInfiniteQuery } from "react-query";
+import { fetchProductList } from "../../api";
+import Card from "../../components/Card";
+import { BallTriangle } from "react-loader-spinner";
 
 function Products() {
   /* fetchProductList ile useQuery üzerinden fetch işlemi yaptık ancak bunu api.jsdeki axios ile yaptık */
-  const { isLoading, error, data } = useQuery("products", fetchProductList);
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery("products", fetchProductList, {
+    getNextPageParam: (lastGroup, allGroups) => {
+      const morePagesExist = lastGroup?.length === 12;
+      if (!morePagesExist) {
+        return;
+      }
+      return allGroups.length + 1;
+    },
+  });
 
-  if (isLoading) return "Loading...";
+  if (status === "loading")
+    return (
+      <Flex mt="10" justifyContent="center">
+        <BallTriangle
+          height={100}
+          width={100}
+          radius={5}
+          color="#4fa94d"
+          ariaLabel="ball-triangle-loading"
+          wrapperClass={{}}
+          wrapperStyle=""
+          visible={true}
+        />
+      </Flex>
+    );
 
-  if (error) return "An error has occurred: " + error.message;
-
+  if (status === "error") return "An error has occurred: " + error.message;
   return (
     <div>
       <Grid templateColumns="repeat(4, minmax(min-content, 1fr))" gap={0}>
-        {data.map((item, key) => (
+        {/* {data.map((item, key) => (
           <Card key={key} item={item} />
+        ))} */}
+
+        {data.pages.map((group, i) => (
+          <React.Fragment key={i}>
+            {group.map((item) => (
+              <Box w="100%" key={item._id}>
+                <Card key={item._id} item={item} />
+              </Box>
+            ))}
+          </React.Fragment>
         ))}
       </Grid>
+      <Flex mt="10" justifyContent="center">
+        <button
+          onClick={() => fetchNextPage()}
+          disabled={!hasNextPage || isFetchingNextPage}
+        >
+          {isFetchingNextPage
+            ? "Loading more..."
+            : hasNextPage
+            ? "Daha Fazla"
+            : "Gösterilecek başka bir ürün yok"}
+        </button>
+        <div>{isFetching && !isFetchingNextPage ? "Fetching..." : null}</div>
+      </Flex>
     </div>
   );
 }
