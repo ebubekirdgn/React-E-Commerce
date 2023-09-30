@@ -1,4 +1,4 @@
-import { Box, Flex, Grid } from "@chakra-ui/react";
+import { Box, Flex, Grid, Button } from "@chakra-ui/react";
 import React from "react";
 import { useInfiniteQuery } from "react-query";
 import { fetchProductList } from "../../api";
@@ -60,16 +60,17 @@ function Products() {
         ))}
       </Grid>
       <Flex mt="10" justifyContent="center">
-        <button
+        <Button
           onClick={() => fetchNextPage()}
+          isLoading={isFetchingNextPage}
           disabled={!hasNextPage || isFetchingNextPage}
         >
           {isFetchingNextPage
-            ? "Loading more..."
+            ? "Loading More"
             : hasNextPage
             ? "Daha Fazla"
             : "Gösterilecek başka bir ürün yok"}
-        </button>
+        </Button>
         <div>{isFetching && !isFetchingNextPage ? "Fetching..." : null}</div>
       </Flex>
     </div>
