@@ -1,14 +1,32 @@
 import React, { useState } from "react";
-import {Alert,Flex,Heading,Input,Button,InputGroup,Stack,InputLeftElement,chakra,Box,FormControl,InputRightElement} from "@chakra-ui/react";
+import {
+  Alert,
+  Flex,
+  Heading,
+  Input,
+  Button,
+  InputGroup,
+  Stack,
+  InputLeftElement,
+  chakra,
+  Box,
+  FormControl,
+  InputRightElement,
+} from "@chakra-ui/react";
 import { FaUserAlt, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useFormik } from "formik";
-import validationSchema from "./validations"
-import {fetchRegister} from '../../../api'
+import validationSchema from "./validations";
+import { fetchRegister } from "../../../api";
+import { useAuth } from "../../../contexts/AuthContext";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
 function Signup() {
+
+  const {login } = useAuth();
+
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -18,10 +36,14 @@ function Signup() {
     validationSchema,
     onSubmit: async (values, bag) => {
       try {
-        const registerResponse = await fetchRegister({email:values.email,password: values.password});
+        const registerResponse = await fetchRegister({
+          email: values.email,
+          password: values.password,
+        });
+        login(registerResponse);
         console.log(registerResponse);
       } catch (e) {
-        bag.setErrors ({general:e.response.data.message})
+        bag.setErrors({ general: e.response.data.message });
       }
     },
   });
@@ -43,13 +65,9 @@ function Signup() {
       >
         <Heading>Sign Up </Heading>
         <Box>
-          {
-            formik.errors.general && (
-              <Alert status="error">
-                {formik.errors.general }
-              </Alert>
-            )
-          }
+          {formik.errors.general && (
+            <Alert status="error">{formik.errors.general}</Alert>
+          )}
         </Box>
         <Box my={5} textAlign="center">
           <form onSubmit={formik.handleSubmit}>
@@ -59,7 +77,7 @@ function Signup() {
               backgroundColor="whiteAlpha.900"
               boxShadow="md"
             >
-              <FormControl >
+              <FormControl>
                 <InputGroup>
                   <InputLeftElement
                     pointerEvents="none"
@@ -76,7 +94,7 @@ function Signup() {
                 </InputGroup>
               </FormControl>
 
-              <FormControl >
+              <FormControl>
                 <InputGroup>
                   <InputLeftElement
                     pointerEvents="none"
@@ -90,8 +108,9 @@ function Signup() {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
-                    isInvalid={formik.touched.password && formik.errors.password}
-
+                    isInvalid={
+                      formik.touched.password && formik.errors.password
+                    }
                   />
                   <InputRightElement width="4.5rem">
                     <Button
@@ -119,8 +138,10 @@ function Signup() {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.passwordConfirm}
-                    isInvalid={formik.touched.passwordConfirm && formik.errors.passwordConfirm}
-
+                    isInvalid={
+                      formik.touched.passwordConfirm &&
+                      formik.errors.passwordConfirm
+                    }
                   />
                   <InputRightElement width="4.5rem">
                     <Button
@@ -133,7 +154,7 @@ function Signup() {
                   </InputRightElement>
                 </InputGroup>
               </FormControl>
-              <Button  w="full" type="submit" colorScheme="blue">
+              <Button w="full" type="submit" colorScheme="blue">
                 Sign Up
               </Button>
             </Stack>

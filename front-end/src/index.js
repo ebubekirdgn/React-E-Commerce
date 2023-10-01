@@ -8,23 +8,28 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
+//contexts
+import { AuthProvider } from "./contexts/AuthContext";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnMount:false,  // aynı uygulama içerisinde başka ekrana geçip gelince tekrar aynı verinin çekilmesini engelledik.
-      refetchOnWindowFocus:false  // başka tab'a geçip geri gelindiğinde backende gidip tekrar aynı verinin çekilmesini engellemiş olduk.
-    }
-  }
+      refetchOnMount: false, // aynı uygulama içerisinde başka ekrana geçip gelince tekrar aynı verinin çekilmesini engelledik.
+      refetchOnWindowFocus: false, // başka tab'a geçip geri gelindiğinde backende gidip tekrar aynı verinin çekilmesini engellemiş olduk.
+    },
+  },
 });
 
 root.render(
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider>
+  <QueryClientProvider client={queryClient}>
+    <ChakraProvider>
+      <AuthProvider>
         <App />
-      </ChakraProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>,
+      </AuthProvider>
+    </ChakraProvider>
+    <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>
 );
 
 reportWebVitals();
