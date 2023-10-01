@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import {Flex,Heading,Input,Button,InputGroup,Stack,InputLeftElement,chakra,Box,FormControl,InputRightElement} from "@chakra-ui/react";
+import {Alert,Flex,Heading,Input,Button,InputGroup,Stack,InputLeftElement,chakra,Box,FormControl,InputRightElement} from "@chakra-ui/react";
 import { FaUserAlt, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useFormik } from "formik";
 import validationSchema from "./validations"
-
+import {fetchRegister} from '../../../api'
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -17,7 +17,12 @@ function Signup() {
     },
     validationSchema,
     onSubmit: async (values, bag) => {
-      console.log(values);
+      try {
+        const registerResponse = await fetchRegister({email:values.email,password: values.password});
+        console.log(registerResponse);
+      } catch (e) {
+        bag.setErrors ({general:e.response.data.message})
+      }
     },
   });
 
@@ -37,6 +42,15 @@ function Signup() {
         alignItems="center"
       >
         <Heading>Sign Up </Heading>
+        <Box>
+          {
+            formik.errors.general && (
+              <Alert status="error">
+                {formik.errors.general }
+              </Alert>
+            )
+          }
+        </Box>
         <Box my={5} textAlign="center">
           <form onSubmit={formik.handleSubmit}>
             <Stack
