@@ -17,9 +17,6 @@
   padding: 1.2em;
 }
 
-
-
-
 .card {
   width: 18em;
   height: 0px;
@@ -28,6 +25,7 @@
   position: relative;
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   transition: 0.4s ease-out;
 }
 

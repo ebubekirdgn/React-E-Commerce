@@ -12,7 +12,7 @@ import {
   FormControl,
   InputRightElement,
 } from "@chakra-ui/react";
-import { FaUserAlt, FaLock, FaEye, FaEyeDropper, FaInvision, FaEyeSlash } from "react-icons/fa";
+import { FaUserAlt, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
