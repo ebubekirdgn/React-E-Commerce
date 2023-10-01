@@ -57,6 +57,7 @@ function Signup() {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.email}
+                    isInvalid={formik.touched.email && formik.errors.email}
                   />
                 </InputGroup>
               </FormControl>
@@ -75,6 +76,8 @@ function Signup() {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
+                    isInvalid={formik.touched.password && formik.errors.password}
+
                   />
                   <InputRightElement width="4.5rem">
                     <Button
@@ -102,6 +105,8 @@ function Signup() {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.passwordConfirm}
+                    isInvalid={formik.touched.passwordConfirm && formik.errors.passwordConfirm}
+
                   />
                   <InputRightElement width="4.5rem">
                     <Button
