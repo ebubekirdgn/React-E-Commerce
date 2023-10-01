@@ -12,7 +12,7 @@ import {
   FormControl,
   InputRightElement,
 } from "@chakra-ui/react";
-import { FaUserAlt, FaLock } from "react-icons/fa";
+import { FaUserAlt, FaLock, FaEye, FaEyeDropper, FaInvision, FaEyeSlash } from "react-icons/fa";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -49,7 +49,7 @@ function Signup() {
                   <Input name="password" type={showPassword ? "text" : "password"}placeholder="Password"/>
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleShowClickPassword}>
-                      {showPassword ? "Hide" : "Show"}
+                      {showPassword ? <FaEye  />  :<FaEyeSlash/>}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
@@ -61,7 +61,7 @@ function Signup() {
                   <Input name="passwordConfirm" type={showPasswordConfirm ? "text" : "password"} placeholder="Password Confirm"/>
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleShowClickPasswordConfirm}>
-                      {showPasswordConfirm ? "Hide" : "Show"}
+                      {showPasswordConfirm ? <FaEye  />  :<FaEyeSlash/>}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
