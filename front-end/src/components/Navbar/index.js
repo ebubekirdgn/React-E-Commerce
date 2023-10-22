@@ -6,7 +6,6 @@ import { useAuth } from "../../contexts/AuthContext";
 
 function Navbar() {
   const { loggedIn } = useAuth();
-  const { user } = useAuth();
 
   return (
     <nav className={styles.nav}>
@@ -37,7 +36,7 @@ function Navbar() {
         {loggedIn && (
           <>
             <Link to="/profile">
-              <Button colorScheme="blue">{user.email}</Button>
+              <Button colorScheme="blue">Profile</Button>
             </Link>
           </>
         )}

@@ -14,7 +14,6 @@ const AuthProvider = ({ children }) => {
         const me = await fetchMe();
         setLoggedIn(true);
         setUser(me);
-        console.log("me", me);
         setLoading(false);
       } catch (e) {
         setLoading(false);
