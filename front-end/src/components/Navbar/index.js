@@ -4,6 +4,7 @@ import { Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
+
 function Navbar() {
   const { loggedIn } = useAuth();
 
@@ -35,7 +36,7 @@ function Navbar() {
 
         {loggedIn && (
           <>
-            <Link to="/profile">
+          <Link to="/profile">
               <Button colorScheme="blue">Profile</Button>
             </Link>
           </>

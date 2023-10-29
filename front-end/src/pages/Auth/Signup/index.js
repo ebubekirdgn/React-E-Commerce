@@ -18,13 +18,14 @@ import { useFormik } from "formik";
 import validationSchema from "./validations";
 import { fetchRegister } from "../../../api";
 import { useAuth } from "../../../contexts/AuthContext";
+import alertify from 'alertifyjs'
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
 function Signup() {
 
-  const {login } = useAuth();
+  const { login } = useAuth();
 
 
   const formik = useFormik({
@@ -65,9 +66,10 @@ function Signup() {
       >
         <Heading>Sign Up </Heading>
         <Box>
-          {formik.errors.general && (
+          {/* {formik.errors.general && (
             <Alert status="error">{formik.errors.general}</Alert>
-          )}
+          )} */}
+          {formik.errors.general &&  alertify.error(formik.errors.general)}
         </Box>
         <Box my={5} textAlign="center">
           <form onSubmit={formik.handleSubmit}>

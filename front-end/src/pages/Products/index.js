@@ -4,6 +4,7 @@ import { useInfiniteQuery } from "react-query";
 import { fetchProductList } from "../../api";
 import Card from "../../components/Card";
 import { BallTriangle } from "react-loader-spinner";
+import 'alertifyjs/build/css/alertify.min.css'
 
 function Products() {
   /* fetchProductList ile useQuery üzerinden fetch işlemi yaptık ancak bunu api.jsdeki axios ile yaptık */
