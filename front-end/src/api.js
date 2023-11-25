@@ -35,7 +35,6 @@ export const fetchRegister = async (input) => {
     `${process.env.REACT_APP_BASE_ENDPOINT}/auth/register`,
     input
   );
-
   return data;
 };
 

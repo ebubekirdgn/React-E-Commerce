@@ -6,21 +6,27 @@ import Signup from "./pages/Auth/Signup";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/Products/ProductDetail";
 import Profile from "./pages/Profile";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
 function App() {
   return (
     <Router>
       <div>
         <Navbar />
-      </div>
+      
       <div id="content">
-        <Routes>
+      <Routes>
           <Route path="/" element={<Products />} />
           <Route path="/product/:product_id" element={<ProductDetail/>} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/profile" element={<Profile />} />
+           <Route exact path='/' element={<ProtectedRoute/>}>
+            <Route exact path='/profile' element={<Profile/>}/>
+          </Route>
+
+
         </Routes>
+      </div>
       </div>
     </Router>
   );

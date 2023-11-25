@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Alert,
   Flex,
   Heading,
   Input,
@@ -18,7 +17,7 @@ import { useFormik } from "formik";
 import validationSchema from "./validations";
 import { fetchRegister } from "../../../api";
 import { useAuth } from "../../../contexts/AuthContext";
-import alertify from 'alertifyjs'
+import { useNavigate } from "react-router-dom";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -26,7 +25,7 @@ const CFaLock = chakra(FaLock);
 function Signup() {
 
   const { login } = useAuth();
-
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -41,8 +40,11 @@ function Signup() {
           email: values.email,
           password: values.password,
         });
+      
         login(registerResponse);
-        console.log(registerResponse);
+        navigate('/profile');
+        
+        console.log("asdasdasd",registerResponse);
       } catch (e) {
         bag.setErrors({ general: e.response.data.message });
       }
@@ -65,12 +67,6 @@ function Signup() {
         alignItems="center"
       >
         <Heading>Sign Up </Heading>
-        <Box>
-          {/* {formik.errors.general && (
-            <Alert status="error">{formik.errors.general}</Alert>
-          )} */}
-          {formik.errors.general &&  alertify.error(formik.errors.general)}
-        </Box>
         <Box my={5} textAlign="center">
           <form onSubmit={formik.handleSubmit}>
             <Stack
