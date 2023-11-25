@@ -1,13 +1,20 @@
 import React from "react";
 import styles from "./styles.module.css";
 import { Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate   } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
 
 function Navbar() {
-  const { loggedIn } = useAuth();
+  const { loggedIn,logout } = useAuth();
+  const navigate = useNavigate();
+  
 
+  const handleLogout  = async () => {
+    logout(() => {
+      navigate('/');
+    });
+  }
   return (
     <nav className={styles.nav}>
       <div className={styles.left}>
@@ -37,7 +44,8 @@ function Navbar() {
         {loggedIn && (
           <>
           <Link to="/profile">
-              <Button colorScheme="blue">Profile</Button>
+              <Button colorScheme="blue">Profile</Button> &nbsp;
+              <Button colorScheme="pink" variant="solid" onClick={handleLogout}> Logout </Button>
             </Link>
           </>
         )}

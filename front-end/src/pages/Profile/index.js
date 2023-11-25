@@ -9,7 +9,8 @@ function Profile() {
     <Text fontSize="22">Profile</Text>
     <code>
         {JSON.stringify(user)}
-    </code>
+    </code><br></br>
+  
   </div>;
 }
 
