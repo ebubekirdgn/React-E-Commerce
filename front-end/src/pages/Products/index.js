@@ -69,8 +69,8 @@ function Products() {
           {isFetchingNextPage
             ? "Loading More"
             : hasNextPage
-            ? "Daha Fazla"
-            : "Gösterilecek başka bir ürün yok"}
+              ? "Daha Fazla"
+              : "Gösterilecek başka bir ürün yok"}
         </Button>
         <div>{isFetching && !isFetchingNextPage ? "Fetching..." : null}</div>
       </Flex>

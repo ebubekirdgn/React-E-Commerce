@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import {Text} from "@chakra-ui/react"
+import { Text } from "@chakra-ui/react"
 
 function Profile() {
   const { user } = useAuth();
@@ -8,9 +8,9 @@ function Profile() {
   return <div>
     <Text fontSize="22">Profile</Text>
     <code>
-        {JSON.stringify(user)}
+      {JSON.stringify(user)}
     </code><br></br>
-  
+
   </div>;
 }
 

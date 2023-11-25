@@ -23,7 +23,7 @@ function ProductDetail() {
   const images = data.photos.map((url) => ({ original: url }));
   return (
     <div>
-      <Box margin="3" width="350px" height="350px">
+      <Box width="350px" height="200px">
         <ImageGallery items={images} />
       </Box>
       <Text as="h2" fontSize="2xl">

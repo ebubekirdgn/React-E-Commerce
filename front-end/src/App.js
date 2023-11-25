@@ -13,20 +13,18 @@ function App() {
     <Router>
       <div>
         <Navbar />
-      
-      <div id="content">
-      <Routes>
-          <Route path="/" element={<Products />} />
-          <Route path="/product/:product_id" element={<ProductDetail/>} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/signup" element={<Signup />} />
-           <Route exact path='/' element={<ProtectedRoute/>}>
-            <Route exact path='/profile' element={<Profile/>}/>
-          </Route>
 
-
-        </Routes>
-      </div>
+        <div id="content">
+          <Routes>
+            <Route path="/" element={<Products />} />
+            <Route path="/product/:product_id" element={<ProductDetail />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route exact path='/' element={<ProtectedRoute />}>
+              <Route exact path='/profile' element={<Profile />} />
+            </Route>
+          </Routes>
+        </div>
       </div>
     </Router>
   );

@@ -40,11 +40,10 @@ function Signup() {
           email: values.email,
           password: values.password,
         });
-      
+
         login(registerResponse);
         navigate('/profile');
-        
-        console.log("asdasdasd",registerResponse);
+        console.log("asdasdasd", registerResponse);
       } catch (e) {
         bag.setErrors({ general: e.response.data.message });
       }
