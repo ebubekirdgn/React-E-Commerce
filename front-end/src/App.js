@@ -7,6 +7,7 @@ import Products from "./pages/Products";
 import ProductDetail from "./pages/Products/ProductDetail";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import Profile from "./pages/Profile";
+import Basket from "./components/Basket";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path="/product/:product_id" element={<ProductDetail />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/basket" element={<Basket />} />
             <Route path="/profile" exact element={<ProtectedRoute><Profile/></ProtectedRoute>} />
           </Routes>
         </div>
