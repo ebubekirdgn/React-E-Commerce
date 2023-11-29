@@ -34,7 +34,7 @@ function ProductDetail() {
         {data.title}
       </Text>
       <Text>{moment(data.createdAt).format("DD/MM/YYYY")}</Text>
-      <Text>{data.price}</Text>
+      <Text bgColor={"yellow"} width={12} >{data.price} ₺</Text>
       <p>{data.description}</p>
 
       <Button colorScheme={findBasketItem ? 'red' : 'blue'} variant="solid" onClick={() => addToBasket(data, findBasketItem)}>{findBasketItem ? "Sepetten Sil" : "Sepete Ekle"}  </Button>
