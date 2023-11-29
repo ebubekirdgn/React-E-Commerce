@@ -1,16 +1,16 @@
 import React from "react";
 import styles from "./styles.module.css";
 import { Button } from "@chakra-ui/react";
-import { Link,useNavigate   } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-
+import { useBasket } from "../../contexts/BasketContext";
 
 function Navbar() {
-  const { loggedIn,logout } = useAuth();
+  const { loggedIn, logout } = useAuth();
   const navigate = useNavigate();
-  
+  const { items } = useBasket();
 
-  const handleLogout  = async () => {
+  const handleLogout = async () => {
     logout(() => {
       navigate('/');
     });
@@ -43,7 +43,16 @@ function Navbar() {
 
         {loggedIn && (
           <>
-          <Link to="/profile">
+         
+          {
+          items.length > 0 && (
+                <Link to="/basket">
+                  <Button colorScheme="pink" variant="outline">
+                    Basket ({items.length})
+                  </Button>
+                </Link>
+          )}
+            <Link to="/profile">
               <Button colorScheme="blue">Profile</Button> &nbsp;
               <Button colorScheme="pink" variant="solid" onClick={handleLogout}> Logout </Button>
             </Link>
