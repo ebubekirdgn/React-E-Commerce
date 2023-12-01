@@ -25,7 +25,9 @@ import { useBasket } from "../../contexts/BasketContext";
 function ProductDetail() {
   const { product_id } = useParams(); // useParams ile id değerini cekip aldık
   const { addToBasket, items } = useBasket();
-  const { isLoading, isError, data } = useQuery(["product", product_id], () => fetchProduct(product_id));
+  const { isLoading, isError, data } = useQuery(["product", product_id], () =>
+    fetchProduct(product_id)
+  );
   const parse = (val) => val.replace(/^\$/, "");
   const [amount, setAmount] = React.useState("0");
   const toast = useToast();
