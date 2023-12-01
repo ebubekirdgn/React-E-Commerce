@@ -8,6 +8,7 @@ import ProductDetail from "./pages/Products/ProductDetail";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import Profile from "./pages/Profile";
 import Basket from "./components/Basket";
+import Error404 from "./pages/Error404";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/basket" element={<Basket />} />
+            <Route path="*" element={<Error404 />} />
             <Route path="/profile" exact element={<ProtectedRoute><Profile/></ProtectedRoute>} />
           </Routes>
         </div>

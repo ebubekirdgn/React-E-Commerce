@@ -4,6 +4,7 @@ import { Button } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useBasket } from "../../contexts/BasketContext";
+import { Avatar, AvatarBadge } from "@chakra-ui/react";
 
 function Navbar() {
   const { loggedIn, logout } = useAuth();
@@ -12,9 +13,9 @@ function Navbar() {
 
   const handleLogout = async () => {
     logout(() => {
-      navigate('/');
+      navigate("/");
     });
-  }
+  };
   return (
     <nav className={styles.nav}>
       <div className={styles.left}>
@@ -43,18 +44,27 @@ function Navbar() {
 
         {loggedIn && (
           <>
-         
-          {
-          items.length > 0 && (
-                <Link to="/basket">
-                  <Button colorScheme="pink" variant="outline">
-                    Basket ({items.length})
-                  </Button>
-                </Link>
-          )}
+            {items.length > 0 && (
+              <Link to="/basket">
+                <Button colorScheme="pink" variant="outline">
+                  Basket ({items.length})
+                </Button>
+              </Link>
+            )}
             <Link to="/profile">
-              <Button colorScheme="blue">Profile</Button> &nbsp;
-              <Button colorScheme="pink" variant="solid" onClick={handleLogout}> Logout </Button>
+              <Avatar bg="teal.500">
+                <AvatarBadge
+                  borderColor="papayawhip"
+                  bg="tomato"
+                  boxSize="1.25em"
+                  src="/profile"
+                />
+              </Avatar>{" "}
+              &nbsp;
+              <Button colorScheme="pink" variant="solid" onClick={handleLogout}>
+                {" "}
+                Logout{" "}
+              </Button>
             </Link>
           </>
         )}

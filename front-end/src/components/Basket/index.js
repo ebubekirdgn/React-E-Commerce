@@ -5,21 +5,22 @@ import { Link } from 'react-router-dom';
 
 
 function Basket() {
-    const { items } = useBasket();
+    const { items,removeFromBasket } = useBasket();
     const total = items.reduce((acc, obj) => acc + obj.price, 0)
 
     return (
 
-        <div>
+        <Box p="5">
             {items.length < 1 && <Alert status='warning'>Sepette ürün bulunamadı</Alert>}
             {items.length > 0 &&
                 <>
-                    <ul>
+                    <ul style={{listStyleType:"decimal"}}>  
                         {items.map((item) => (
-                            <li key={item._id}>
+                            <li key={item._id} style={{marginBottom:10}}>
                                 <Link to={`/product/${item._id}`}>{item.title} - {item.price} ₺
-                                    <Image htmlWidth={100} src={item.photos[0]} alt='Basket Items'></Image></Link>
-                                <Button mt="2" size="sm" colorScheme="pink" onClick={() => { }} >Sil</Button>
+                                    <Image htmlWidth={100} src={item.photos[0]} alt='Basket Items' loading='lazy'></Image></Link>
+                                   
+                                <Button mt="2" size="sm" colorScheme="pink" onClick={() =>  removeFromBasket(item._id)} >Sil</Button>
                                 <br /><br />
                                 <hr />
                             </li>
@@ -34,7 +35,7 @@ function Basket() {
 
             }
 
-        </div>
+        </Box>
     )
 }
 
