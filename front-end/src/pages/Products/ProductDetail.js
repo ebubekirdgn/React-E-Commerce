@@ -2,7 +2,6 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import {
-  Box,
   Text,
   Button,
   Badge,
@@ -11,21 +10,25 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  useToast,
+  Divider,
+  CardFooter,
+  Stack,
+  Heading,
+  Card,
+  CardBody,
 } from "@chakra-ui/react";
 import ImageGallery from "react-image-gallery";
 import { fetchProduct } from "../../api";
-import moment from "moment";
 import { useBasket } from "../../contexts/BasketContext";
 
 function ProductDetail() {
   const { product_id } = useParams(); // useParams ile id değerini cekip aldık
   const { addToBasket, items } = useBasket();
-  const { isLoading, isError, data } = useQuery(["product", product_id], () =>
-    fetchProduct(product_id)
-  );
-  const format = (val) => `₺` + val;
+  const { isLoading, isError, data } = useQuery(["product", product_id], () => fetchProduct(product_id));
   const parse = (val) => val.replace(/^\$/, "");
   const [amount, setAmount] = React.useState("0");
+  const toast = useToast();
 
   if (isLoading) {
     return <div>...Loading...</div>;
@@ -36,42 +39,66 @@ function ProductDetail() {
 
   const findBasketItem = items.find((item) => item._id === product_id);
   const images = data.photos.map((url) => ({ original: url }));
-
   return (
     <div>
-      <Box width="350px" height="200px">
-        <ImageGallery items={images} />
-      </Box>
-      <Text as="h2" fontSize="2xl">
-        {data.title}
-      </Text>
-      <Text>{moment(data.createdAt).format("DD/MM/YYYY")}</Text>
-      <Badge colorScheme="green" mt={2} mb={2}>
-        <Text fontSize="2xl"> {data.price} ₺ </Text>
-      </Badge>
-      <NumberInput
-        onChange={(valueString) => setAmount(parse(valueString))}
-        value={format(amount)}
-        max={50}
-        size='xs'
-        width={20}
-      >
-        <NumberInputField />
-        <NumberInputStepper>
-          <NumberIncrementStepper />
-          <NumberDecrementStepper />
-        </NumberInputStepper>
-      </NumberInput>
-      <br />
-      <p>{data.description}</p>
-      <p>Value {amount}</p>
-      <Button
-        colorScheme={findBasketItem ? "red" : "blue"}
-        variant="solid"
-        onClick={() => addToBasket(amount,data, findBasketItem)}
-      >
-        {findBasketItem ? "Sepetten Sil" : "Sepete Ekle"}{" "}
-      </Button>
+      <Card maxW="sm">
+        <CardBody>
+          <ImageGallery items={images} />
+          <Stack mt="6" spacing="3">
+            <Heading size="md">{data.title}</Heading>
+            <Text>{data.description}</Text>
+            <Text color="blue.600" fontSize="2xl">
+              <Badge colorScheme="green" mt={2} mb={2}>
+                <Text fontSize="2xl"> {data.price} ₺ </Text>
+              </Badge>
+            </Text>
+            <Text></Text>
+          </Stack>
+        </CardBody>
+        <Divider />
+        <CardFooter justify="space-evenly" flexWrap="wrap">
+          <Card align="right">
+            <NumberInput
+              onChange={(valueString) => setAmount(parse(valueString))}
+              defaultValue={1}
+              min={1}
+              max={50}
+              width={20}
+            >
+              <NumberInputField />
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+          </Card>
+
+          <Button
+            colorScheme={findBasketItem ? "red" : "blue"}
+            variant="solid"
+            onClick={() => {
+              addToBasket(amount, data, findBasketItem);
+              if (findBasketItem) {
+                toast({
+                  title: "Ürün sepete eklenemedi",
+                  status: "error",
+                  duration: 9000,
+                  isClosable: true,
+                });
+              } else {
+                toast({
+                  title: "Ürün sepete eklendi",
+                  status: "success",
+                  duration: 9000,
+                  isClosable: true,
+                });
+              }
+            }}
+          >
+            {findBasketItem ? "Sepetten Sil" : "Sepete Ekle"}
+          </Button>
+        </CardFooter>
+      </Card>
     </div>
   );
 }
