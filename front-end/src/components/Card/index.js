@@ -1,16 +1,14 @@
 import { Box, Image, Button, Badge, Text, Heading } from '@chakra-ui/react';
 import { Link } from "react-router-dom";
 import React from "react";
-import moment from "moment";
 import styles from "./styles.module.css";
 import { useBasket } from "../../contexts/BasketContext";
-
 function Card({ item }) {
   const { addToBasket, items } = useBasket();
   const findBasketItem = items.find((basket_item) => basket_item._id === item._id);
 
   return (
-    <Box
+     <Box
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"

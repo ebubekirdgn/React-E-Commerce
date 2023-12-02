@@ -1,19 +1,10 @@
 import React from "react";
 import styles from "./styles.module.css";
-import { Button } from "@chakra-ui/react";
+import { Button,Avatar, AvatarBadge } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useBasket } from "../../contexts/BasketContext";
-import {
-  Avatar, 
-  AvatarBadge,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuGroup,
-  MenuDivider,
-} from "@chakra-ui/react";
+
 function Navbar() {
   const { loggedIn, logout } = useAuth();
   const navigate = useNavigate();
