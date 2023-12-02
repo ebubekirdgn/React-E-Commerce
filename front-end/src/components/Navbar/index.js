@@ -4,8 +4,16 @@ import { Button } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useBasket } from "../../contexts/BasketContext";
-import { Avatar, AvatarBadge } from "@chakra-ui/react";
-
+import {
+  Avatar, 
+  AvatarBadge,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuGroup,
+  MenuDivider,
+} from "@chakra-ui/react";
 function Navbar() {
   const { loggedIn, logout } = useAuth();
   const navigate = useNavigate();
@@ -22,7 +30,7 @@ function Navbar() {
         <div className={styles.logo}>
           <Link to="/">GeldiGeliyor.com</Link>
         </div>
-
+       
         <ul className={styles.menu}>
           <li>
             <Link to="/">Products</Link>
@@ -51,6 +59,7 @@ function Navbar() {
                 </Button>
               </Link>
             )}
+            
             <Link to="/profile">
               <Avatar bg="teal.500">
                 <AvatarBadge

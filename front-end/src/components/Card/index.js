@@ -1,4 +1,4 @@
-import { Box, Image, Button } from "@chakra-ui/react";
+import { Box, Image, Button, Badge, Text, Heading } from '@chakra-ui/react';
 import { Link } from "react-router-dom";
 import React from "react";
 import moment from "moment";
@@ -24,13 +24,14 @@ function Card({ item }) {
           className={styles.img}
         />
         <Box p="6">
-          <Box d="plex" alignItems="baseline">
-            {moment(item.createdAt).format("DD/MM/YYYY")}
-          </Box>
-          <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight">
+        
+        <Heading as='h4' size='md'>
             {item.title}
+          </Heading>
+          <Box>
+             <Text >
+              <Badge variant='outline' fontSize='lg' colorScheme='green'>{item.price} ₺  </Badge></Text>
           </Box>
-          <Box>{item.price} ₺ </Box>
         </Box>
       </Link>
       <div className={styles.card}>
