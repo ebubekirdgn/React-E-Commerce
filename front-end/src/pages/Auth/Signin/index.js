@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import {Flex,Heading,Input,Button,InputGroup,Stack,InputLeftElement,chakra,Box,FormControl,InputRightElement, Alert} from "@chakra-ui/react";
-import { FaUserAlt, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import {Flex,Heading,Input,Button,InputGroup,Stack,InputLeftElement,chakra,Box,FormControl, Alert} from "@chakra-ui/react";
+import { FaUserAlt, FaLock } from "react-icons/fa";
 import { useFormik } from "formik";
 import validationSchema from "./validations";
 import { fetchLogin } from "../../../api";
@@ -36,9 +35,6 @@ function Signin() {
       }
     },
   });
-
-  const [showPassword, setShowPassword] = useState(false);
-  const handleShowClickPassword = () => setShowPassword(!showPassword);
 
   return (
     <Flex align="center" width="full" justifyContent="center">
@@ -87,7 +83,7 @@ function Signin() {
                   />
                   <Input
                     name="password"
-                    type={showPassword ? "text" : "password"}
+                    type="password"
                     placeholder="Password"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -96,15 +92,7 @@ function Signin() {
                       formik.touched.password && formik.errors.password
                     }
                   />
-                  <InputRightElement width="4.5rem">
-                    <Button
-                      h="1.75rem"
-                      size="sm"
-                      onClick={handleShowClickPassword}
-                    >
-                      {showPassword ? <FaEye /> : <FaEyeSlash />}
-                    </Button>
-                  </InputRightElement>
+               
                 </InputGroup>
               </FormControl>
               <Button w="full" type="submit" colorScheme="blue">
