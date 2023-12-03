@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet, Route, Routes, useMatch } from "react-router-dom";
+import { Link,  Route, Routes, useMatch } from "react-router-dom";
 import "./styles.css";
 import { Box, Switch } from "@chakra-ui/react";
 
