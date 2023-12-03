@@ -5,6 +5,8 @@ import {
   Button,
   SimpleGrid,
   Center,
+  Skeleton,
+  Stack,
 } from "@chakra-ui/react";
 import React from "react";
 import { useInfiniteQuery } from "react-query";
@@ -32,7 +34,6 @@ function Products() {
       return allGroups.length + 1;
     },
   });
- 
 
   if (status === "loading")
     return (
@@ -53,12 +54,15 @@ function Products() {
   if (status === "error") return "An error has occurred: " + error.message;
   return (
     <div>
-  
-  <SimpleGrid columns={1} spacing={10}>
-  <Center bg='tomato' h='100px' color='white'>
-  This is the Center
-</Center>
-</SimpleGrid>
+      <SimpleGrid columns={1} spacing={10}>
+        <Center bg="" h="100px" color="white">
+          <Stack>
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+          </Stack>
+        </Center>
+      </SimpleGrid>
 
       <Grid templateColumns="repeat(4, minmax(min-content, 1fr))" gap={0}>
         {/* {data.map((item, key) => (

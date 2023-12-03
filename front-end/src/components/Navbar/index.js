@@ -1,12 +1,21 @@
 import React from "react";
 import styles from "./styles.module.css";
-import { Button,Avatar, AvatarBadge } from "@chakra-ui/react";
+import {
+  Button,
+  Avatar,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuGroup,
+  MenuDivider,
+} from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useBasket } from "../../contexts/BasketContext";
 
 function Navbar() {
-  const { loggedIn, logout ,user} = useAuth();
+  const { loggedIn, logout, user } = useAuth();
   const navigate = useNavigate();
   const { items } = useBasket();
 
@@ -21,7 +30,7 @@ function Navbar() {
         <div className={styles.logo}>
           <Link to="/">GeldiGeliyor.com</Link>
         </div>
-       
+
         <ul className={styles.menu}>
           <li>
             <Link to="/">Products</Link>
@@ -43,38 +52,35 @@ function Navbar() {
 
         {loggedIn && (
           <>
+            <Menu colorScheme="blue">
+              <MenuButton as={Button} colorScheme="pink">
+                Profile
+              </MenuButton>
+              <MenuList>
+                <MenuGroup title="Profile">
+                  <MenuItem to="/admin"> 
+                     <Avatar name="Prosper Otemuyiwa" src="https://bit.ly/prosper-baba" />
+                       {user.email}
+                  </MenuItem>
+                  <MenuItem>Ayarlar </MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </MenuGroup>
+              </MenuList>
+            </Menu>
             {items.length > 0 && (
               <Link to="/basket">
                 <Button colorScheme="pink" variant="outline">
                   Basket ({items.length})
                 </Button>
               </Link>
+            )}  &nbsp;
+            {user?.role === "admin" && (
+              <Link to="/admin">
+                <Button colorScheme="blue" variant="outline">
+                  Admin
+                </Button>
+              </Link>
             )}
-            {
-              user?.role === "admin"  && (
-                <Link to="/admin">
-                  <Button colorScheme="pink" variant="outline">
-                    Admin
-                  </Button>
-                </Link>
-              )
-            }
-            
-            <Link to="/profile">
-              <Avatar bg="teal.500">
-                <AvatarBadge
-                  borderColor="papayawhip"
-                  bg="tomato"
-                  boxSize="1.25em"
-                  src="/profile"
-                />
-              </Avatar>{" "}
-              &nbsp;
-              <Button colorScheme="pink" variant="solid" onClick={handleLogout}>
-                {" "}
-                Logout{" "}
-              </Button>
-            </Link>
           </>
         )}
       </div>
