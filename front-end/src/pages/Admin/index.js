@@ -11,8 +11,8 @@ function Admin() {
   useMatch("/admin");
   return (
     <div>
-      <header>
-        <ul>
+      <nav>
+        <ul className="admin-menu">
           <li>
             <Link to="home">Home</Link>
           </li>
@@ -23,8 +23,7 @@ function Admin() {
             <Link to="orders">Orders</Link>
           </li>
         </ul>
-      </header>
-      <Outlet />
+      </nav>
       <Box mt="10">
         <Switch>
           <Routes>
