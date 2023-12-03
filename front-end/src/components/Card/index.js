@@ -1,14 +1,16 @@
-import { Box, Image, Button, Badge, Text, Heading } from '@chakra-ui/react';
+import { Box, Image, Button, Badge, Text, Heading } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import React from "react";
 import styles from "./styles.module.css";
 import { useBasket } from "../../contexts/BasketContext";
 function Card({ item }) {
   const { addToBasket, items } = useBasket();
-  const findBasketItem = items.find((basket_item) => basket_item._id === item._id);
+  const findBasketItem = items.find(
+    (basket_item) => basket_item._id === item._id
+  );
 
   return (
-     <Box
+    <Box
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
@@ -22,19 +24,27 @@ function Card({ item }) {
           className={styles.img}
         />
         <Box p="6">
-        
-        <Heading as='h4' size='md'>
+          <Heading as="h4" size="md">
             {item.title}
           </Heading>
           <Box>
-             <Text >
-              <Badge variant='outline' fontSize='lg' colorScheme='green'>{item.price} ₺  </Badge></Text>
+            <Text>
+              <Badge variant="outline" fontSize="lg" colorScheme="green">
+                {item.price} ₺{" "}
+              </Badge>
+            </Text>
           </Box>
         </Box>
       </Link>
       <div className={styles.card}>
         <div className={styles.info}>
-          <Button colorScheme="red" variant="outlined" onClick={() => addToBasket(item, findBasketItem)}>{findBasketItem ? "Sepetten Sil" : "Sepete Ekle"}  </Button>
+          <Button
+            colorScheme="red"
+            variant="outlined"
+            onClick={() => addToBasket(item, findBasketItem)}
+          >
+            {findBasketItem ? "Sepetten Sil" : "Sepete Ekle"}
+          </Button>
         </div>
       </div>
     </Box>

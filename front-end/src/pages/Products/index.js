@@ -1,10 +1,22 @@
-import { Box, Flex, Grid, Button } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Grid,
+  Button,
+  CardHeader,
+  Heading,
+  CardBody,
+  CardFooter,
+  Text,
+  SimpleGrid,
+  Center,
+} from "@chakra-ui/react";
 import React from "react";
 import { useInfiniteQuery } from "react-query";
 import { fetchProductList } from "../../api";
 import Card from "../../components/Card";
 import { BallTriangle } from "react-loader-spinner";
-import 'alertifyjs/build/css/alertify.min.css'
+import "alertifyjs/build/css/alertify.min.css";
 
 function Products() {
   /* fetchProductList ile useQuery üzerinden fetch işlemi yaptık ancak bunu api.jsdeki axios ile yaptık */
@@ -25,6 +37,7 @@ function Products() {
       return allGroups.length + 1;
     },
   });
+ 
 
   if (status === "loading")
     return (
@@ -45,6 +58,13 @@ function Products() {
   if (status === "error") return "An error has occurred: " + error.message;
   return (
     <div>
+  
+  <SimpleGrid columns={1} spacing={10}>
+  <Center bg='tomato' h='100px' color='white'>
+  This is the Center
+</Center>
+</SimpleGrid>
+
       <Grid templateColumns="repeat(4, minmax(min-content, 1fr))" gap={0}>
         {/* {data.map((item, key) => (
           <Card key={key} item={item} />
@@ -69,8 +89,8 @@ function Products() {
           {isFetchingNextPage
             ? "Loading More"
             : hasNextPage
-              ? "Daha Fazla"
-              : "Gösterilecek başka bir ürün yok"}
+            ? "Daha Fazla"
+            : "Gösterilecek başka bir ürün yok"}
         </Button>
         <div>{isFetching && !isFetchingNextPage ? "Fetching..." : null}</div>
       </Flex>
