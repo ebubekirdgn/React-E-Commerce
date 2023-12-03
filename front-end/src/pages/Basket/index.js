@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useBasket } from "../../contexts/BasketContext";
 import {
   Alert,
@@ -19,16 +19,26 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { postOrder } from "../../api";
 
 function Basket() {
-  const { items, removeFromBasket } = useBasket();
+  const { items, removeFromBasket,emptyBasket } = useBasket();
   const total = items.reduce((acc, obj) => acc + obj.price, 0);
-
+  const [address,setAddress] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const initialRef = React.useRef(null);
-  const finalRef = React.useRef(null);
 
+  const handleSubmitForm = async () => {
+    const itemIds = items.map((item) => item._id) // Sepette olan bütün ürünlerin idlerini tutar
+    const input = {
+      address,
+      items : JSON.stringify(itemIds)
+    }
+    await postOrder(input)
+    emptyBasket();
+    onClose();
+  }
   return (
     <Box p="5">
       {items.length < 1 && (
@@ -73,7 +83,6 @@ function Basket() {
 
             <Modal
               initialFocusRef={initialRef}
-              finalFocusRef={finalRef}
               isOpen={isOpen}
               onClose={onClose}
             >
@@ -84,12 +93,12 @@ function Basket() {
                 <ModalBody pb={6}>
                   <FormControl>
                     <FormLabel>Adres</FormLabel>
-                    <Textarea ref={initialRef} placeholder="Adres" />
+                    <Textarea ref={initialRef} placeholder="Adres" value={address} onChange={(e) => setAddress(e.target.value)}/>
                   </FormControl>
                 </ModalBody>
 
                 <ModalFooter>
-                  <Button colorScheme="blue" mr={3}>
+                  <Button colorScheme="blue" mr={3} onClick={handleSubmitForm}>
                     Kaydet
                   </Button>
                   <Button onClick={onClose}>İptal</Button>

@@ -9,6 +9,7 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 import Profile from "./pages/Profile";
 import Basket from "./pages/Basket";
 import Error404 from "./pages/Error404";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
@@ -24,15 +25,8 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/basket" element={<Basket />} />
             <Route path="*" element={<Error404 />} />
-            <Route
-              path="/profile"
-              exact
-              element={
-                <ProtectedRoute>
-                  <Profile />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/profile" exact element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
+            <Route path="/admin"  exact element={<ProtectedRoute> <Admin/> </ProtectedRoute>} />
           </Routes>
         </div>
       </div>

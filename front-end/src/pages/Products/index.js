@@ -3,11 +3,6 @@ import {
   Flex,
   Grid,
   Button,
-  CardHeader,
-  Heading,
-  CardBody,
-  CardFooter,
-  Text,
   SimpleGrid,
   Center,
 } from "@chakra-ui/react";
