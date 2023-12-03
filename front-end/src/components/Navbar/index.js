@@ -8,7 +8,6 @@ import {
   MenuList,
   MenuItem,
   MenuGroup,
-  MenuDivider,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
@@ -52,15 +51,18 @@ function Navbar() {
 
         {loggedIn && (
           <>
-            <Menu colorScheme="blue">
-              <MenuButton as={Button} colorScheme="pink">
+            <Menu>
+              <MenuButton as={Button} colorScheme="blue">
                 Profile
               </MenuButton>
               <MenuList>
                 <MenuGroup title="Profile">
-                  <MenuItem to="/admin"> 
-                     <Avatar name="Prosper Otemuyiwa" src="https://bit.ly/prosper-baba" />
-                       {user.email}
+                  <MenuItem to="/admin">
+                    <Avatar
+                      name="Prosper Otemuyiwa"
+                      src="https://bit.ly/prosper-baba"
+                    />
+                    {user.email}
                   </MenuItem>
                   <MenuItem>Ayarlar </MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
@@ -73,7 +75,8 @@ function Navbar() {
                   Basket ({items.length})
                 </Button>
               </Link>
-            )}  &nbsp;
+            )}{" "}
+            &nbsp;
             {user?.role === "admin" && (
               <Link to="/admin">
                 <Button colorScheme="blue" variant="outline">

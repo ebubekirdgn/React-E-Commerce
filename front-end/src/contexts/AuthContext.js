@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { fetchLogout, fetchMe } from "../api";
-import {Flex,Spinner} from "@chakra-ui/react"
+import { Flex, Spinner } from "@chakra-ui/react";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -34,20 +34,26 @@ const AuthProvider = ({ children }) => {
     await fetchLogout();
     localStorage.removeItem("access-token");
     localStorage.removeItem("refresh-token");
-    callback()
+    callback();
   };
 
   const values = {
     loggedIn,
     user,
     login,
-    logout
+    logout,
   };
 
   if (loading) {
     return (
       <Flex justifyContent="center" alignItems="center" height="100vh">
-        <Spinner thickness="4px" speed="0.65s" emptyColor="blue.200" size="xl" color="red.500"/>
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="blue.200"
+          size="xl"
+          color="red.500"
+        />
       </Flex>
     );
   }
