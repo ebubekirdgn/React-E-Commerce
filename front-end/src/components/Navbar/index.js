@@ -75,7 +75,7 @@ function Navbar() {
                   Basket ({items.length})
                 </Button>
               </Link>
-            )}{" "}
+            )}
             &nbsp;
             {user?.role === "admin" && (
               <Link to="/admin">

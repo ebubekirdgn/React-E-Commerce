@@ -31,7 +31,7 @@ function App() {
             
             <Route path="/profile"  element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
 
-            <Route path="/admin/"  exact element={<ProtectedRoute> <Admin/>   </ProtectedRoute>} />
+            <Route path="/admin"  exact element={<ProtectedRoute> <Admin/>   </ProtectedRoute>} />
             
             <Route path="/admin/home"   element={<ProtectedRoute> <Home/></ProtectedRoute>} />
             <Route path="/admin/products"   element={<ProtectedRoute><AdminProducts/>  </ProtectedRoute>} />
