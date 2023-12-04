@@ -17,28 +17,49 @@ import {
   FormControl,
   FormLabel,
   Textarea,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { postOrder } from "../../api";
-
 function Basket() {
-  const { items, removeFromBasket,emptyBasket } = useBasket();
+  const { items, removeFromBasket, emptyBasket } = useBasket();
   const total = items.reduce((acc, obj) => acc + obj.price, 0);
-  const [address,setAddress] = useState("");
+  const [address, setAddress] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const initialRef = React.useRef(null);
 
   const handleSubmitForm = async () => {
-    const itemIds = items.map((item) => item._id) // Sepette olan bütün ürünlerin idlerini tutar
+    const itemIds = items.map((item) => item._id); // Sepette olan bütün ürünlerin idlerini tutar
     const input = {
       address,
-      items : JSON.stringify(itemIds)
-    }
-    await postOrder(input)
+      items: JSON.stringify(itemIds),
+    };
+    await postOrder(input);
     emptyBasket();
     onClose();
-  }
+  };
+
+ 
+  const groupedCartItems = items.reduce((acc, item) => {
+    if (!acc[item._id]) {
+      acc[item._id] = { ...item, count: 1 };
+    } else {
+      acc[item._id].count++;
+    }
+    return acc;
+  }, {});
+
+  const cartItemsArray = Object.values(groupedCartItems);
+
+
+
+  console.log(cartItemsArray);
+  console.log(items);
   return (
     <Box p="5">
       {items.length < 1 && (
@@ -46,8 +67,8 @@ function Basket() {
       )}
       {items.length > 0 && (
         <>
-          <ul style={{ listStyleType: "decimal" }}>
-            {items.map((item) => (
+          <ul>
+            {cartItemsArray.map((item) => (
               <li key={item._id} style={{ marginBottom: 10 }}>
                 <Link to={`/product/${item._id}`}>
                   {item.title} - {item.price} ₺
@@ -58,7 +79,13 @@ function Basket() {
                     loading="lazy"
                   ></Image>
                 </Link>
-
+                <NumberInput size='xs' maxW={24} defaultValue={item.count} min={1}>
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
                 <Button
                   mt="2"
                   size="sm"
@@ -86,7 +113,6 @@ function Basket() {
               isOpen={isOpen}
               onClose={onClose}
             >
-              
               <ModalOverlay />
               <ModalContent>
                 <ModalHeader>Adres Bilgisi</ModalHeader>
@@ -94,7 +120,12 @@ function Basket() {
                 <ModalBody pb={6}>
                   <FormControl>
                     <FormLabel>Adres</FormLabel>
-                    <Textarea ref={initialRef} placeholder="Adres" value={address} onChange={(e) => setAddress(e.target.value)}/>
+                    <Textarea
+                      ref={initialRef}
+                      placeholder="Adres"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                    />
                   </FormControl>
                 </ModalBody>
 
