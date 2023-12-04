@@ -30,12 +30,12 @@ function App() {
             <Route path="*" element={<Error404 />} />
             
             <Route path="/profile"  element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
-
-            <Route path="/admin"  exact element={<ProtectedRoute> <Admin/>   </ProtectedRoute>} />
-            
-            <Route path="/admin/home"   element={<ProtectedRoute> <Home/></ProtectedRoute>} />
-            <Route path="/admin/products"   element={<ProtectedRoute><AdminProducts/>  </ProtectedRoute>} />
-            <Route path="/admin/orders"   element={<ProtectedRoute> <Orders/> </ProtectedRoute>} />
+            <Route path="/admin/"  exact element={<ProtectedRoute> <Admin/>   </ProtectedRoute>} />
+            <Route element= {<Admin/>}>
+                <Route path="/" index  element={<ProtectedRoute> <Home/></ProtectedRoute>} />
+                <Route path="/products"   element={<ProtectedRoute><AdminProducts/>  </ProtectedRoute>} />
+                <Route path="/orders"   element={<ProtectedRoute> <Orders/> </ProtectedRoute>} />
+            </Route>
           </Routes>
         </div>
       </div>

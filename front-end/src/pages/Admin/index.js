@@ -1,25 +1,25 @@
 import React from "react";
-import { Link,useMatch } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import "./styles.css";
-
-
 function Admin() {
-  useMatch("/admin");
   return (
     <div>
-      <nav>
-        <ul className="admin-menu">
-          <li>
-            <Link to="home">Home</Link>
-          </li>
-          <li>
-            <Link to="products">Products</Link>
-          </li>
-          <li>
-            <Link to="orders">Orders</Link>
-          </li>
-        </ul>
-      </nav>
+      <header>
+        <nav>
+          <ul className="admin-menu">
+            <li>
+              <NavLink to="/">Home</NavLink>
+            </li>
+            <li>
+              <NavLink to="/orders">Orders</NavLink>
+            </li>
+            <li>
+              <NavLink to="/products">About</NavLink>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <Outlet />
     </div>
   );
 }
