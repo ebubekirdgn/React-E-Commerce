@@ -86,6 +86,7 @@ function Basket() {
               isOpen={isOpen}
               onClose={onClose}
             >
+              
               <ModalOverlay />
               <ModalContent>
                 <ModalHeader>Adres Bilgisi</ModalHeader>
