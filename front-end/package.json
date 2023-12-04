@@ -17,6 +17,7 @@
     "chakra-ui-search": "^1.1.1",
     "formik": "^2.4.5",
     "framer-motion": "^10.16.12",
+    "install": "^0.13.0",
     "jquery": "^3.7.1",
     "moment": "^2.29.4",
     "popper.js": "^1.16.1",

@@ -25,6 +25,7 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { postOrder } from "../../api";
+
 function Basket() {
   const { items, removeFromBasket, emptyBasket } = useBasket();
   const total = items.reduce((acc, obj) => acc + obj.price, 0);
@@ -44,7 +45,6 @@ function Basket() {
     onClose();
   };
 
- 
   const groupedCartItems = items.reduce((acc, item) => {
     if (!acc[item._id]) {
       acc[item._id] = { ...item, count: 1 };
@@ -55,8 +55,6 @@ function Basket() {
   }, {});
 
   const cartItemsArray = Object.values(groupedCartItems);
-
-
 
   console.log(cartItemsArray);
   console.log(items);
@@ -79,7 +77,12 @@ function Basket() {
                     loading="lazy"
                   ></Image>
                 </Link>
-                <NumberInput size='xs' maxW={24} defaultValue={item.count} min={1}>
+                <NumberInput
+                  size="xs"
+                  maxW={24}
+                  defaultValue={item.count}
+                  min={1}
+                >
                   <NumberInputField />
                   <NumberInputStepper>
                     <NumberIncrementStepper />
