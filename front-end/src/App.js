@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter , Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Signin from "./pages/Auth/Signin";
 import Signup from "./pages/Auth/Signup";
@@ -10,13 +10,15 @@ import Profile from "./pages/Profile";
 import Basket from "./pages/Basket";
 import Error404 from "./pages/Error404";
 import Admin from "./pages/Admin";
+import Orders from "./pages/Admin/Orders";
+import AdminProducts from "./pages/Admin/Products";
+import Home from "./pages/Admin/Home";
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <div>
         <Navbar />
-
         <div id="content">
           <Routes>
             <Route path="/" element={<Products />} />
@@ -27,11 +29,16 @@ function App() {
             <Route path="*" element={<Error404 />} />
             
             <Route path="/profile"  element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
-            <Route path="/admin"  element={<ProtectedRoute> <Admin /> </ProtectedRoute>} />
+
+            <Route path="/admin/"  exact element={<ProtectedRoute> <Admin/>   </ProtectedRoute>} >
+              <Route path="/admin/home"   element={<ProtectedRoute> <Home/></ProtectedRoute>} />
+              <Route path="/admin/products"   element={<ProtectedRoute><AdminProducts/>  </ProtectedRoute>} />
+              <Route path="/admin/orders"   element={<ProtectedRoute> <Orders/> </ProtectedRoute>} />
+            </Route>
           </Routes>
         </div>
       </div>
-    </Router>
+      </BrowserRouter>
   );
 }
 

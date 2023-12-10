@@ -1,12 +1,17 @@
-import { Box, Switch } from '@chakra-ui/react'
-import React from 'react'
-import { Link, Outlet, Route, Routes } from 'react-router-dom'
+import React from "react";
+import { Link, Route, Routes } from "react-router-dom";
 import "./styles.css";
+import { Box } from "@chakra-ui/react";
+
+import Home from "./Home";
+import Orders from "./Orders";
+import Products from "./Products";
+
 function Admin() {
   return (
     <div>
       <header>
-        <ul className='admin-menu'>
+        <ul className="admin-menu">
           <li>
             <Link to="home">Home</Link>
           </li>
@@ -18,18 +23,14 @@ function Admin() {
           </li>
         </ul>
       </header>
-      <Outlet />
-      {/* <Box mt="10">
-        <Switch>
-          <Routes>
-            <Route exact path="/home" element={<Home />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/orders" element={<Orders />} />
-          </Routes>
-        </Switch>
-      </Box> */}
+      <Box mt="5">
+        <Routes>
+          <Route exact path="/home" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/orders" element={<Orders />} />
+        </Routes>
+      </Box>
     </div>
-  )
+  );
 }
-
-export default Admin
+export default Admin;
