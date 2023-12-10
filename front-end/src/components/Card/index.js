@@ -36,7 +36,7 @@ function Card({ item }) {
           </Box>
         </Box>
       </Link>
-      <div className={styles.card}>
+      {/* <div className={styles.card}>
         <div className={styles.info}>
           <Button
             colorScheme="red"
@@ -46,7 +46,7 @@ function Card({ item }) {
             {findBasketItem ? "Sepetten Sil" : "Sepete Ekle"}
           </Button>
         </div>
-      </div>
+      </div> */}
     </Box>
   );
 }
