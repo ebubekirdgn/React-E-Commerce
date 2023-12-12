@@ -1,6 +1,6 @@
-import {useMemo} from "react";
-import { useQuery } from "react-query";
-import { fetchProductList } from "../../../api";
+import { useMemo } from "react";
+import { useQuery, useMutation,useQueryClient } from "react-query";
+import { fetchProductList, deleteProduct } from "../../../api";
 import { Table, Popconfirm } from "antd";
 import { Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
@@ -11,50 +11,60 @@ function AdminProducts() {
     fetchProductList
   );
 
+  const deleteMutation = useMutation(deleteProduct);
+  const queryClient = useQueryClient();
   //cache aldık bunu
   const columns = useMemo(() => {
-  return[
-    {
-      title: "Title",
-      dataIndex: "title",
-      key: "title",
-    },
-    {
-      title: "Price",
-      dataIndex: "price",
-      key: "price",
-    },
-    {
-      title: "Created At",
-      dataIndex: "createdAt",
-      key: "createdAt",
-    },
-    {
-      title: "Action",
-      key: "action",
-      render: (text, record) => (
-        <>
-          <Link to={`/admin/products/${record._id}`}> Düzenle </Link>
-          <Popconfirm
-            title="Uyarı"
-            description="Silmek istediğinizden emin misiniz"
-            onConfirm={() => {
-              alertify.success("Silindi.");
-            }}
-            onCancel={() => {
-              console.log("İptal Edildi");
-            }}
-            okText="Evet"
-            cancelText="Hayır"
-            placement="left"
-          >
-           <a href="/#" style={{marginLeft:10}}>Sil</a>
-          </Popconfirm>
-        </>
-      ),
-    },
-  ]
-  },[]);
+    return [
+      {
+        title: "Title",
+        dataIndex: "title",
+        key: "title",
+      },
+      {
+        title: "Price",
+        dataIndex: "price",
+        key: "price",
+      },
+      {
+        title: "Created At",
+        dataIndex: "createdAt",
+        key: "createdAt",
+      },
+      {
+        title: "Action",
+        key: "action",
+        render: (text, record) => (
+          <>
+            <Link to={`/admin/products/${record._id}`}> Düzenle </Link>
+            <Popconfirm
+              title="Uyarı"
+              description="Silmek istediğinizden emin misiniz"
+              onConfirm={() => {
+                deleteMutation.mutate(record._id, {
+                  onSuccess: () => {
+                    console.log("success");
+                    queryClient.invalidateQueries('admin:products')
+                  },
+                });
+                alertify.success("Silindi.");
+              }}
+              onCancel={() => {
+                console.log("İptal Edildi");
+              }}
+              okText="Evet"
+              cancelText="Hayır"
+              placement="left"
+            >
+              <a  style={{ marginLeft: 10 }}>
+                Sil
+              </a>
+            </Popconfirm>
+          </>
+        ),
+      },
+    ];
+  }, []);
   if (isLoading) {
     return <div>Loading...</div>;
   }
