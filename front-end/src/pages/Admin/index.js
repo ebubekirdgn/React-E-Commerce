@@ -6,23 +6,18 @@ import { Box } from "@chakra-ui/react";
 import Home from "./Home";
 import Orders from "./Orders";
 import Products from "./Products";
+import { Divider } from "antd";
 
 function Admin() {
   return (
     <div>
-      <header>
-        <ul className="admin-menu">
-          <li>
-            <Link to="home">Home</Link>
-          </li>
-          <li>
-            <Link to="products">Products</Link>
-          </li>
-          <li>
-            <Link to="orders">Orders</Link>
-          </li>
-        </ul>
-      </header>
+    <Divider type="vertical" />
+    <Link to="home">Home</Link>
+    <Divider type="vertical" />
+    <Link to="products">Products</Link>
+    <Divider type="vertical" />
+    <Link to="orders">Orders</Link>
+    
       <Box mt="5">
         <Routes>
           <Route exact path="/home" element={<Home />} />

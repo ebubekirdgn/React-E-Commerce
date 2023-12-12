@@ -1,18 +1,20 @@
 import { useMemo } from "react";
-import { useQuery, useMutation,useQueryClient } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { fetchProductList, deleteProduct } from "../../../api";
-import { Table, Popconfirm } from "antd";
+import { Table, Popconfirm, Spin, Button } from "antd";
 import { Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import alertify from "alertifyjs";
+import { DeleteOutlined } from '@ant-design/icons';
+
 function AdminProducts() {
   const { isLoading, isError, data, error } = useQuery(
     "admin:products",
     fetchProductList
   );
 
-  const deleteMutation = useMutation(deleteProduct,{
-    onSuccess: () => queryClient.invalidateQueries('admin:products')
+  const deleteMutation = useMutation(deleteProduct, {
+    onSuccess: () => queryClient.invalidateQueries("admin:products"),
   });
   const queryClient = useQueryClient();
   //cache aldık bunu
@@ -57,17 +59,22 @@ function AdminProducts() {
               cancelText="Hayır"
               placement="left"
             >
-              <a style={{ marginLeft: 10 }}>
-                Sil
-              </a>
+              <Button danger icon={<DeleteOutlined />}/>  
+            
             </Popconfirm>
           </>
         ),
       },
     ];
-  }, []);
+  }, [deleteMutation]);
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Spin tip="Loading" size="large">
+          <div className="content" />
+        </Spin>
+      </div>
+    );
   }
   if (isError) {
     return <div> Error {error.message}</div>;
