@@ -11,7 +11,9 @@ function AdminProducts() {
     fetchProductList
   );
 
-  const deleteMutation = useMutation(deleteProduct);
+  const deleteMutation = useMutation(deleteProduct,{
+    onSuccess: () => queryClient.invalidateQueries('admin:products')
+  });
   const queryClient = useQueryClient();
   //cache aldık bunu
   const columns = useMemo(() => {
@@ -44,7 +46,6 @@ function AdminProducts() {
                 deleteMutation.mutate(record._id, {
                   onSuccess: () => {
                     console.log("success");
-                    queryClient.invalidateQueries('admin:products')
                   },
                 });
                 alertify.success("Silindi.");
@@ -56,7 +57,7 @@ function AdminProducts() {
               cancelText="Hayır"
               placement="left"
             >
-              <a  style={{ marginLeft: 10 }}>
+              <a style={{ marginLeft: 10 }}>
                 Sil
               </a>
             </Popconfirm>
