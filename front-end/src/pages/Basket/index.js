@@ -55,9 +55,7 @@ function Basket() {
   }, {});
 
   const cartItemsArray = Object.values(groupedCartItems);
-
-  console.log(cartItemsArray);
-  console.log(items);
+ 
   return (
     <Box p="5">
       {items.length < 1 && (
