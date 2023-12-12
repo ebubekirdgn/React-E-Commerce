@@ -7,6 +7,7 @@ import Home from "./Home";
 import Orders from "./Orders";
 import Products from "./Products";
 import { Divider } from "antd";
+import AdminProductDetail from "./ProductDetail";
 
 function Admin() {
   return (
@@ -21,7 +22,8 @@ function Admin() {
       <Box mt="5">
         <Routes>
           <Route exact path="/home" element={<Home />} />
-          <Route path="/products" element={<Products />} />
+          <Route  path="/products" element={<Products />} />
+          <Route  path="/products/:product_id" element={<AdminProductDetail />} />
           <Route path="/orders" element={<Orders />} />
         </Routes>
       </Box>
