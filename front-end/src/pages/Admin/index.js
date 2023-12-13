@@ -23,6 +23,7 @@ function Admin() {
         <Routes>
           <Route exact path="/home" element={<Home />} />
           <Route  path="/products" element={<Products />} />
+       
           <Route  path="/products/:product_id" element={<AdminProductDetail />} />
           <Route path="/orders" element={<Orders />} />
         </Routes>
