@@ -24,7 +24,11 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.3",
     "rate-limit-redis": "^4.2.0",
+<<<<<<< Updated upstream
     "sucrase": "^3.34.0",
     "yarn": "^1.22.21"
+=======
+    "sucrase": "^3.34.0"
+>>>>>>> Stashed changes
   }
 }
