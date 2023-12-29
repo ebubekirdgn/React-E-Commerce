@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { fetchProductList, deleteProduct } from "../../../api";
-import { Table, Popconfirm, Spin, Button } from "antd";
-import { Text } from "@chakra-ui/react";
+import { Table, Popconfirm, Spin,Button} from "antd";
+import { Text,  Center } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import alertify from "alertifyjs";
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined } from "@ant-design/icons";
 
 function AdminProducts() {
   const { isLoading, isError, data, error } = useQuery(
@@ -59,8 +59,7 @@ function AdminProducts() {
               cancelText="Hayır"
               placement="left"
             >
-              <Button danger icon={<DeleteOutlined />}/>  
-            
+              <Button danger icon={<DeleteOutlined />} />
             </Popconfirm>
           </>
         ),
@@ -82,7 +81,14 @@ function AdminProducts() {
 
   return (
     <>
+      <Center color='white'>
+        <Link to="/admin/products/new">
+          <Button colorScheme='blue'>Ürün Ekle</Button>
+        </Link>
+      </Center>
+
       <Text fontSize="2xl">Admin Product</Text>
+
       <Table dataSource={data} columns={columns} rowKey="_id" />
     </>
   );

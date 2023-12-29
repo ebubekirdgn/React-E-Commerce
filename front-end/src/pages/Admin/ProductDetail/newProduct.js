@@ -1,62 +1,44 @@
-import React from "react";
-import { message } from "antd";
-import { useParams } from "react-router-dom";
-import { fetchProduct, updateProduct } from "../../../api";
-import { useQuery } from "react-query";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Spinner,
-  Text,
-  Textarea,
-} from "@chakra-ui/react";
-import { FieldArray, Formik } from "formik";
+import { Box, Button, FormControl, FormLabel, Input, Text, Textarea } from '@chakra-ui/react';
+import { FieldArray, Formik } from 'formik';
+import React from 'react'
 import validationSchema from "./validations";
+import { message } from "antd";
+import { postProduct } from "../../../api";
+import { useMutation, useQueryClient} from "react-query";
 
-function AdminProductDetail() {
-  const { product_id } = useParams();
+function NewProduct() {
+    const queryClient = useQueryClient();
 
-  const { isLoading, isError, data, error } = useQuery(
-    ["admin:product", product_id],
-    () => fetchProduct(product_id)
-  );
-
-  if (isLoading) {
-    return (
-      <div>
-        <Spinner size="xl" />
-      </div>
-    );
-  }
-  if (isError) {
-    return <div>Error {error.message}</div>;
-  }
-  const handleSubmit = async (values, bag) => {
-    try {
-      await updateProduct(values, product_id);
-      message.success({
-        content: "Ürün başarıyla güncellendi...",
-        key: "product_id",
-        duration: "2",
+    const newProductsMutation = useMutation(postProduct, {
+        onSuccess: () => queryClient.invalidateQueries("admin:products"),
       });
-    } catch (error) {
-      message.error({
-        content: "Ürün güncelleme sırasında bir hata oluştu..."});
-    }
-  };
+  
+    const handleSubmit = async (values,bag) => {
 
+        const newValues = {
+            ...values,
+            photos:JSON.stringify(values.photos)//Stringe cevirdik resmin yolunu
+        }
+        newProductsMutation.mutate(newValues, {
+                  onSuccess: () => {
+                    message.success({
+                        content: "Ürün başarıyla eklendi...",
+                        key: "product_id",
+                        duration: "2",
+                      });
+                  },
+                });
+                
+    };
   return (
     <div>
-      <Text fontSize="2xl">Edit</Text>
-      <Formik
+        <Text fontSize="2xl"> Yeni Ürün Oluştur</Text>
+        <Formik
         initialValues={{
-          title: data.title,
-          description: data.description,
-          price: data.price,
-          photos: data.photos,
+          title: "",
+          description:  "",
+          price:  "",
+          photos: [],
         }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
@@ -94,8 +76,8 @@ function AdminProductDetail() {
                     <Textarea
                       name="description"
                       onChange={handleChange}
-                      onBlur={handleBlur}
                       value={values.description}
+                      onBlur={handleBlur}
                       disabled={isSubmitting}
                       isInvalid={touched.description && errors.description}
                     />
@@ -105,7 +87,7 @@ function AdminProductDetail() {
                   </FormControl>
 
                   <FormControl>
-                    <FormLabel> Title </FormLabel>
+                    <FormLabel> Price </FormLabel>
                     <Input
                       name="price"
                       onChange={handleChange}
@@ -168,7 +150,7 @@ function AdminProductDetail() {
                     colorScheme="green"
                     isLoading={isSubmitting}
                   >
-                    Güncelle
+                    Kaydet
                   </Button>
                 </form>
               </Box>
@@ -177,7 +159,7 @@ function AdminProductDetail() {
         )}
       </Formik>
     </div>
-  );
+  )
 }
 
-export default AdminProductDetail;
+export default NewProduct
