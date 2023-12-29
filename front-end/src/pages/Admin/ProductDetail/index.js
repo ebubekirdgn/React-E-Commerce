@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useParams } from "react-router-dom";
-import { fetchProduct } from "../../../api";
+import { fetchProduct,updateProduct } from "../../../api";
 import { useQuery } from "react-query";
 import {
   Box,
@@ -14,6 +14,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { FieldArray, Formik } from "formik";
+import validationSchema from "./validations"
 
 function AdminProductDetail() {
   const { product_id } = useParams();
@@ -33,8 +34,9 @@ function AdminProductDetail() {
   if (isError) {
     return <div>Error {error.message}</div>;
   }
-  const handleSubmit = () => {
-    console.log("Submitting");
+  const handleSubmit =async (values,bag) => {
+
+   updateProduct();
   };
 
   return (
@@ -47,7 +49,7 @@ function AdminProductDetail() {
           price: data.price,
           photos: data.photos,
         }}
-        // ValidationSchema
+        validationSchema = {validationSchema}
         onSubmit={handleSubmit}
       >
         {({
@@ -71,7 +73,9 @@ function AdminProductDetail() {
                       onBlur={handleBlur}
                       value={values.title}
                       disabled={isSubmitting}
+                      isInvalid={touched.title && errors.title}
                     />
+                   {touched.title && errors.title && <Text color="red.500">{errors.title}</Text>}
                   </FormControl>
 
                   <FormControl>
@@ -82,7 +86,9 @@ function AdminProductDetail() {
                       onBlur={handleBlur}
                       value={values.description}
                       disabled={isSubmitting}
+                      isInvalid={touched.description && errors.description}
                     />
+                     {touched.description && errors.description && <Text color="red.500">{errors.description}</Text>}
                   </FormControl>
 
                   <FormControl>
@@ -93,7 +99,9 @@ function AdminProductDetail() {
                       onBlur={handleBlur}
                       value={values.price}
                       disabled={isSubmitting}
+                      isInvalid={touched.price && errors.price}
                     />
+                     {touched.price && errors.price && <Text color="red.500">{errors.price}</Text>}
                   </FormControl>
 
                   <FormControl mt="4">
@@ -134,19 +142,20 @@ function AdminProductDetail() {
                           >
                             Resim Ekle
                           </Button>
-                          <Button
-                            mt="5"
-                            ml="3"
-                            type="submit"
-                            colorScheme="green"
-                            isLoading={isSubmitting}
-                          >
-                            Update
-                          </Button>
+                       
                         </div>
                       )}
                     />
                   </FormControl>
+                  <Button
+                            mt="5"
+                            width="full"
+                            type="submit"
+                            colorScheme="green"
+                            isLoading={isSubmitting}
+                          >
+                            Güncelle
+                          </Button>
                 </form>
               </Box>
             </Box>
