@@ -120,22 +120,29 @@ function AdminProductDetail() {
                                     arrayHelpers.remove(index);
                                   }}
                                 >
-                                  {" "}
                                   Sil
-                                </Button>
-
-                                <Button
-                                  ml="5"
-                                  type="button"
-                                  colorScheme="red"
-                                  onClick={() => {
-                                    arrayHelpers.push('');
-                                  }}
-                                >
-                                  Resim Ekle
                                 </Button>
                               </div>
                             ))}
+                          <Button
+                            mt="5"
+                            type="button"
+                            colorScheme="blue"
+                            onClick={() => {
+                              arrayHelpers.push("");
+                            }}
+                          >
+                            Resim Ekle
+                          </Button>
+                          <Button
+                            mt="5"
+                            ml="3"
+                            type="submit"
+                            colorScheme="green"
+                            isLoading={isSubmitting}
+                          >
+                            Update
+                          </Button>
                         </div>
                       )}
                     />
